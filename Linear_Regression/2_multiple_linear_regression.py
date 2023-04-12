@@ -148,7 +148,6 @@ cross_10_valid = np.sqrt(-cross_val_score(lr_model,
 cross_10_valid.mean() # 1.6913531708051792
 
 
-
 cross_5_valid = np.sqrt(-cross_val_score(lr_model,
                                  X,
                                  y,
@@ -158,4 +157,3 @@ cross_5_valid = np.sqrt(-cross_val_score(lr_model,
 # array([1.77102792, 1.55745554, 1.25905722, 2.32941088, 1.67067208])
 
 cross_5_valid.mean() # 1.7175247278732084
-
