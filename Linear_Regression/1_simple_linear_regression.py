@@ -46,8 +46,8 @@ df.describe().T
 # Simple Linear Regression
 ########################################
 
-X = df[["TV"]] # independent variable
-y = df[["sales"]] # dependent variable
+X = df[['TV']] # independent variable
+y = df[['sales']] # dependent variable
 
 lr_model = LinearRegression().fit(X,y)
 
@@ -106,10 +106,10 @@ lr_model.score(X, y) # 0.611875050850071
 # Visualization of the model
 ########################################
 
-g = sns.regplot(x=X, y=y, scatter_kws={'color': 'b', 's': 9}, ci=False, color="r")
-g.set_title(f"Model Formula: Sales = {round(lr_model.intercept_[0], 2)} + TV*{round(lr_model.coef_[0][0], 2)}")
-g.set_ylabel("Number of Sales")
-g.set_xlabel("TV add")
+g = sns.regplot(x=X, y=y, scatter_kws={'color': 'b', 's': 9}, ci=False, color='r')
+g.set_title(f'Model Formula: Sales = {round(lr_model.intercept_[0], 2)} + TV*{round(lr_model.coef_[0][0], 2)}')
+g.set_ylabel('Number of Sales')
+g.set_xlabel('TV add')
 plt.xlim(-10)
 plt.ylim(0)
 plt.show(block=True)
