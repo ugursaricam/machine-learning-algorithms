@@ -4,7 +4,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, mean_absolute_error
-from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.model_selection import train_test_split, cross_val_score, cross_validate
 
 pd.set_option('display.max_columns', None)
 # pd.set_option('display.max_rows', None)
@@ -46,8 +46,8 @@ df.describe().T
 # Multiple Linear Regression
 ########################################
 
-X = df.drop("sales", axis=1)
-y = df[["sales"]]
+X = df.drop('sales', axis=1)
+y = df[['sales']]
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.20, random_state=1)
 
@@ -83,6 +83,19 @@ y_manual_pred # 6.202130997974463
 new_data = [[30], [10], [40]]
 new_data = pd.DataFrame(new_data, index=X.columns).T
 lr_model.predict(new_data) # 6.202131
+
+########################################
+# Plotting
+########################################
+
+def lr_model_plot(dataframe, var1, var2):
+    sns.regplot(x=df[var1], y=df[var2], scatter_kws={'color': 'b', 's': 9}, ci=False, color='r')
+    plt.ylim(bottom=0)
+    plt.xlim(left=0)
+    plt.show(block=True)
+
+for i in X.columns:
+    lr_model_plot(df, i, 'sales')
 
 ########################################
 # MSE -  Mean Squared Error
@@ -136,24 +149,14 @@ lr_model.score(X_test, y_test) # 0.8927605914615384
 # Cross validation
 ########################################
 
-cross_10_valid = np.sqrt(-cross_val_score(lr_model,
-                                 X,
-                                 y,
-                                 cv=10,
-                                 scoring="neg_mean_squared_error"))
+import sklearn
+sklearn.metrics.get_scorer_names()
 
-# array([1.88689808, 1.81595022, 1.44548731, 1.68069713, 1.14139187,
-#        1.31971064, 2.85891276, 1.45399362, 1.7443426 , 1.56614748])
+cv_results = cross_validate(lr_model,
+                            X, y,
+                            cv=5,
+                            scoring=['neg_mean_squared_error'])
 
-cross_10_valid.mean() # 1.6913531708051792
+-(cv_results['test_neg_mean_squared_error'].mean()) # 3.072946597100212 MSE
 
-
-cross_5_valid = np.sqrt(-cross_val_score(lr_model,
-                                 X,
-                                 y,
-                                 cv=5,
-                                 scoring="neg_mean_squared_error"))
-
-# array([1.77102792, 1.55745554, 1.25905722, 2.32941088, 1.67067208])
-
-cross_5_valid.mean() # 1.7175247278732084
+np.sqrt(-(cv_results['test_neg_mean_squared_error'].mean())) # 1.7529822010220788 RMSE
