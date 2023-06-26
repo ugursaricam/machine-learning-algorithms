@@ -13,7 +13,7 @@ df = pd.read_csv('datasets/diabetes.csv')
 check_df(df)
 
 ################################################
-# Data Preprocessing
+# Data Preprocessing 
 ################################################
 
 y = df['Outcome']
