@@ -64,7 +64,7 @@ cv_results['test_f1'].mean() # 0.5905780011534191
 cv_results['test_roc_auc'].mean() # 0.7805279524807827
 
 ################################################
-# Hyperparameter Optimization
+# Hyperparameter Optimization 
 ################################################
 
 knn_model.get_params()
