@@ -51,7 +51,7 @@ y_prob = knn_model.predict_proba(X)[:, 1]
 roc_auc_score(y, y_prob) # 0.9017686567164179
 
 ################################################
-# Cross-Validation
+# Cross-Validation 
 ################################################
 
 cv_results = cross_validate(knn_model,
